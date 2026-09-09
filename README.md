@@ -1,30 +1,15 @@
-# Viral Radio — fixed buttons + real listener monitoring
+# Viral Radio — Real Caster.fm Streaming
 
-This version repairs the broken/duplicate HTML and makes the navigation, Play, Vote,
-Request, Top 10, News and Follow buttons respond.
+This version removes the duplicated HTML/JavaScript that caused the Play button error.
 
-## Real listener rule
-The listener counter is **not fake**. A listener is counted only after the site's
-real audio player successfully starts and sends heartbeats. No random numbers are generated.
+## Activate the real Caster.fm stream
+1. In Caster.fm, open your station's Streams / Broadcasting area and copy the real **Stream URL**.
+2. In Vercel → Project → Settings → Environment Variables, create:
+   - Name: `CASTER_STREAM_URL`
+   - Value: your real Caster.fm stream URL
+   - Enable Production (and Preview if you test there)
+3. Redeploy.
 
-## Caster.fm
-The ZIP intentionally does **not** invent a stream URL. Before Play can start a
-Caster.fm stream through the site's own audio player, set this line in `index.html`:
+The Play button then starts the real Caster.fm stream. Listener counts are sent only while the browser audio is actually playing. No random/demo listeners are generated.
 
-```js
-const STREAM_URL = "YOUR_REAL_CASTER_FM_STREAM_URL";
-```
-
-You can also configure the official Caster.fm widget by replacing its Public Token
-and Channel ID placeholders.
-
-## Vercel / Redis
-For a shared production listener counter, configure Upstash/Vercel Redis with:
-`KV_REST_API_URL` and `KV_REST_API_TOKEN` (or the corresponding `UPSTASH_REDIS_REST_*` variables).
-
-Without Redis, the API uses per-instance memory and can undercount across Vercel
-instances. It never fabricates listeners.
-
-## Important
-Votes and requests in this lightweight build use server memory. For permanent/global
-storage, connect the existing endpoints to Redis or another database.
+If Caster.fm is off-air or the URL is wrong, the player reports the real playback error instead of fabricating a stream.
