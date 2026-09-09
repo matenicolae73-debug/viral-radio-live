@@ -1,0 +1,283 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Viral Radio — The World Is Listening</title><style>
+*{box-sizing:border-box}body{margin:0;background:#030914;color:#eef6ff;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}header{height:74px;border-bottom:1px solid #16304f;display:flex;align-items:center;gap:24px;padding:0 28px;background:#050d1a;position:sticky;top:0;z-index:5}.logo{font-weight:900;font-size:24px;letter-spacing:.5px}.logo span{color:#8c5cff}.tag{font-size:10px;color:#89a4c1;letter-spacing:2px}.nav{display:flex;gap:24px;margin-left:auto;color:#9db4ce;font-size:14px}.nav a{color:inherit;text-decoration:none}.live{background:#ff2f7d;border-radius:22px;padding:10px 17px;font-weight:800}.listeners{color:#a9bed6}.wrap{max-width:1220px;margin:auto;padding:28px 20px 50px}.grid{display:grid;grid-template-columns:220px 1fr 290px;gap:18px}.card{background:linear-gradient(145deg,#071426,#06101f);border:1px solid #153454;border-radius:16px;box-shadow:0 12px 35px #0006}.side{padding:16px}.side div{padding:13px 12px;color:#a8bdd4;border-radius:10px;margin-bottom:4px}.side .sel{background:#1a2d72;color:white}.hero{min-height:205px;display:flex;align-items:center;padding:28px;position:relative;overflow:hidden;background:radial-gradient(circle at 25% 50%,#2420a0 0,#071326 52%,#06101e 100%)}.hero h1{font-size:32px;margin:8px 0}.hero p{color:#b9cae0;max-width:500px}.hero .pill{display:inline-block;background:#ff2f7d;padding:7px 12px;border-radius:15px;font-size:11px;font-weight:900}.wave{position:absolute;right:20px;bottom:25px;width:43%;height:60px;background:repeating-linear-gradient(90deg,#7d4cff 0 3px,transparent 3px 8px);mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);opacity:.8}.now{padding:20px;display:grid;grid-template-columns:130px 1fr;gap:18px;margin-top:18px}.cover{height:130px;border-radius:12px;background:linear-gradient(135deg,#ff7b39,#4a48ff 50%,#090e1c);display:flex;align-items:end;padding:12px;font-weight:900}.meta{color:#8fa9c4;font-size:13px}.title{font-size:25px;font-weight:850;margin:7px 0}.progress{height:6px;background:#14243b;border-radius:6px;margin:18px 0}.progress i{display:block;width:44%;height:100%;background:linear-gradient(90deg,#ff2f7d,#7b5cff);border-radius:6px}.controls{display:flex;align-items:center;gap:22px}.play{width:48px;height:48px;border-radius:50%;border:0;background:#fff;color:#08101b;font-size:20px}.side2{padding:18px}.side2 h3{margin:0 0 15px}.rank{display:flex;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #132941}.num{font-weight:900;color:#a979ff;width:18px}.thumb{width:42px;height:42px;border-radius:8px;background:linear-gradient(135deg,#ff397e,#3321a8)}.rank small{display:block;color:#91a8c0;margin-top:3px}.sponsor{margin-top:18px;padding:22px;text-align:center;background:#062116;border-color:#1a9b58}.sponsor b{color:#4df08e;font-size:22px}.lower{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.box{padding:20px}.vote{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #132941}.btn{margin-top:14px;width:100%;padding:12px;border:0;border-radius:10px;background:linear-gradient(90deg,#ff2f7d,#715cff);color:white;font-weight:800}.status{color:#58e79a;font-size:12px;font-weight:800}.footer{margin-top:18px;padding:20px;text-align:center;color:#7e98b4;font-size:12px}@media(max-width:900px){.grid{grid-template-columns:1fr}.side{display:none}.nav{display:none}.lower{grid-template-columns:1fr}.hero h1{font-size:25px}}
+</style>
+<style>
+.monitor-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+.monitor-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px}
+.monitor-label{font-size:11px;opacity:.65;text-transform:uppercase;letter-spacing:.08em}
+.monitor-value{font-size:25px;font-weight:800;margin-top:5px}
+.monitor-sub{font-size:11px;opacity:.55;margin-top:4px}
+.monitor-live{display:inline-flex;align-items:center;gap:7px;font-weight:700}
+.monitor-dot{width:9px;height:9px;border-radius:50%;background:#ff3158;box-shadow:0 0 12px #ff3158;display:inline-block}
+.chart-wrap{margin-top:14px;padding:14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.1);border-radius:14px}
+#listenerChart{width:100%;height:120px}
+@media(max-width:800px){.monitor-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head><body><header><div><div class="logo">VIRAL <span>RADIO</span></div><div class="tag">THE WORLD IS LISTENING</div></div><nav class="nav"><a href="#">Home</a><a href="#top">Top 10</a><a href="#vote">Vote</a><a href="#request">Request</a></nav><div class="live">● LIVE</div><div class="listeners" id="headerListeners">0 listeners</div></header><main class="wrap"><div class="grid"><aside class="card side"><div class="sel">🎧 Now Playing</div><div>🏆 Global Top 10</div><div>👍 Vote</div><div>🎵 Request a Song</div><div>🤖 AI DJ</div><div>📅 Schedule</div><div>📰 News & Trends</div><div>🌐 Social</div></aside><section><div class="card hero"><div><span class="pill">ON AIR</span><h1>AI DJ LIVE</h1><p id="dj">“Good vibes, great music and people from all over the world. This is Viral Radio!”</p><div class="status">● AI BROADCAST ACTIVE</div></div><div class="wave"></div></div><div class="card now"><div class="cover">VIRAL<br>RADIO</div><div><div class="meta">🎵 NOW PLAYING · GLOBAL POP</div><div class="title">Demo Track — The World Is Listening</div><div class="meta">Viral Radio Original Demo</div><div class="progress"><i></i></div><div class="controls"><span>LIVE</span><button class="play" onclick="scrollToCasterPlayer()">▶</button><span>CASTER.FM</span><span>🔊</span></div></div></div><div class="card box" id="casterPlayer" style="margin-top:18px"><h3>📻 LISTEN LIVE</h3><p class="meta">Viral Radio is broadcasting through Caster.fm.</p><div class="cstrEmbed" data-type="streamPlayer" data-publicToken="PASTE_CASTER_PUBLIC_TOKEN_HERE" data-theme="dark" data-color="ff2f7d" data-channelId="PASTE_CASTER_CHANNEL_ID_HERE" data-rendered="false"><a href="https://www.caster.fm">Shoutcast Hosting</a></div><script src="https://cdn.cloud.caster.fm/widgets/embed.js"></script><p class="monitor-sub" style="margin-top:12px">Free Caster.fm plans use the official embedded player. Replace the two placeholders with your Public Token and Channel ID from Caster.fm Widgets / Players.</p></div><div class="lower"><div class="card box" id="top"><h3>🏆 Global Top 10</h3><div class="rank"><b class="num">1</b><div class="thumb"></div><div>Dua Lipa<small>Houdini</small></div></div><div class="rank"><b class="num">2</b><div class="thumb"></div><div>The Weeknd<small>Dancing In The Flames</small></div></div><div class="rank"><b class="num">3</b><div class="thumb"></div><div>Imagine Dragons<small>Believer</small></div></div></div><div class="card box" id="vote"><h3>🗳️ Vote for Next Song</h3><div class="vote"><span>Flowers — Miley Cyrus</span><b>42%</b></div><div class="vote"><span>Calm Down — Rema</span><b>34%</b></div><div class="vote"><span>As It Was — Harry Styles</span><b>24%</b></div><button class="btn" onclick="vote()">VOTE NOW</button></div></div></section><aside class="card side2"><h3>🔥 Viral Track of the Hour</h3><div class="rank"><div class="thumb"></div><div><b>Demo Winner</b><small>Selected by listeners</small></div></div><button class="btn">VIEW GLOBAL TOP 10 →</button><div class="card sponsor"><small>SPONSOR SLOT</small><p><b>Your Brand</b></p><small>Be seen by a global audience</small></div></aside></div><div class="card footer" id="request">🌍 Worldwide • 🤖 AI DJ • 🗳️ Listener voting • 💬 Requests • 💰 Sponsor-ready<br><br>Viral Radio — The World Is Listening</div></main><script>
+const STREAM_URL = ""; // Caster.fm Free uses the official embedded player above.
+const LISTENER_ID_KEY = "viral-radio-listener-id";
+function getListenerId(){
+  try {
+    let id = localStorage.getItem(LISTENER_ID_KEY);
+    if (!id) { id = crypto.randomUUID ? crypto.randomUUID() : (Date.now()+"-"+Math.random().toString(36).slice(2)); localStorage.setItem(LISTENER_ID_KEY,id); }
+    return id;
+  } catch (_) { return Date.now()+"-"+Math.random().toString(36).slice(2); }
+}
+let listenerTimer=null;
+function scrollToCasterPlayer(){ document.getElementById("casterPlayer")?.scrollIntoView({behavior:"smooth",block:"center"}); }
+function startListenerHeartbeat(){ sendHeartbeat(true); clearInterval(listenerTimer); listenerTimer=setInterval(()=>sendHeartbeat(true),15000); }
+function stopListenerHeartbeat(){ clearInterval(listenerTimer); listenerTimer=null; sendHeartbeat(false); }
+async function sendHeartbeat(active){ try{ const r=await fetch("/api/listeners",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({active,id:getListenerId()})}); if(r.ok) updateListeners(await r.json()); }catch(e){} }
+function updateListeners(d){ const n=Number(d.listeners)||0; const header=document.getElementById("headerListeners"); const now=document.getElementById("listenersNow"); if(header) header.textContent=n.toLocaleString()+" listeners"; if(now) now.textContent=n.toLocaleString(); if(d.peak!=null){const p=document.getElementById("peakListeners");if(p)p.textContent=Number(d.peak)||0;} }
+window.addEventListener("beforeunload",()=>sendHeartbeat(false));
+</script>
+<section id="monitoring" style="margin-top:28px">
+  <h2>📊 LIVE MONITORING</h2>
+  <div class="monitor-grid">
+    <div class="monitor-card"><div class="monitor-label">Status</div><div class="monitor-value monitor-live"><span class="monitor-dot"></span>LIVE</div><div class="monitor-sub">Radio stream monitor</div></div>
+    <div class="monitor-card"><div class="monitor-label">Listeners now</div><div class="monitor-value" id="listenersNow">0</div><div class="monitor-sub">active listeners</div></div>
+    <div class="monitor-card"><div class="monitor-label">Peak today</div><div class="monitor-value" id="peakListeners">0</div><div class="monitor-sub">highest concurrent</div></div>
+    <div class="monitor-card"><div class="monitor-label">Avg. session</div><div class="monitor-value" id="avgSession">—</div><div class="monitor-sub">estimated listening time</div></div>
+  </div>
+  <div class="chart-wrap">
+    <div class="monitor-label">Listeners — last 20 min</div>
+    <canvas id="listenerChart"></canvas>
+  </div>
+  <div class="monitor-grid">
+    <div class="monitor-card"><div class="monitor-label">Top country</div><div class="monitor-value" id="topCountry">—</div><div class="monitor-sub">from connected players</div></div>
+    <div class="monitor-card"><div class="monitor-label">Countries</div><div class="monitor-value" id="countriesCount">0</div><div class="monitor-sub">connected countries</div></div>
+    <div class="monitor-card"><div class="monitor-label">Peak hour</div><div class="monitor-value" id="peakHour">—</div><div class="monitor-sub">highest live hour</div></div>
+    <div class="monitor-card"><div class="monitor-label">Uptime</div><div class="monitor-value">LIVE</div><div class="monitor-sub">player monitor</div></div>
+  </div>
+</section>
+
+<script>
+(() => {
+  const canvas = document.getElementById('listenerChart');
+  const data = Array(20).fill(0);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function draw(){
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    canvas.width = w*dpr; canvas.height = h*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,w,h);
+    const max = Math.max(1, ...data);
+    const x = i => 8 + i*(w-16)/(data.length-1);
+    const y = v => h-10-(v)*(h-20)/max;
+    ctx.beginPath();
+    data.forEach((v,i)=> i ? ctx.lineTo(x(i),y(v)) : ctx.moveTo(x(i),y(v)));
+    ctx.lineWidth=3;
+    ctx.strokeStyle=getComputedStyle(document.body).color || '#fff';
+    ctx.globalAlpha=.85;
+    ctx.stroke();
+    ctx.globalAlpha=1;
+  }
+
+  async function refresh(){
+    try {
+      const r = await fetch('/api/listeners', {cache:'no-store'});
+      if (!r.ok) return;
+      const d = await r.json();
+      const n = Number.isFinite(Number(d.listeners)) ? Number(d.listeners) : 0;
+      const p = Number.isFinite(Number(d.peak)) ? Number(d.peak) : 0;
+      const now = document.getElementById('listenersNow');
+      const header = document.getElementById('headerListeners');
+      const peak = document.getElementById('peakListeners');
+      if(now) now.textContent = n.toLocaleString();
+      if(header) header.textContent = n.toLocaleString() + ' listeners';
+      if(peak) peak.textContent = p.toLocaleString();
+      data.push(n); data.shift(); draw();
+    } catch (_) {
+      // Keep the last confirmed value. Never generate fallback/demo traffic.
+    }
+  }
+  window.addEventListener('resize', draw);
+  draw();
+  refresh();
+  setInterval(refresh, 5000);
+})();
+</script>
+</body></html><script>
+(() => {
+  const canvas = document.getElementById('listenerChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let data = Array(20).fill(0);
+
+  function draw(){
+    const dpr=window.devicePixelRatio||1,w=canvas.clientWidth,h=canvas.clientHeight;
+    canvas.width=w*dpr; canvas.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,w,h);
+    const max=Math.max(1,...data), min=0;
+    const x=i=>8+i*(w-16)/(data.length-1);
+    const y=v=>h-10-(v-min)*(h-20)/(max-min);
+    ctx.beginPath();
+    data.forEach((v,i)=>i?ctx.lineTo(x(i),y(v)):ctx.moveTo(x(i),y(v)));
+    ctx.lineWidth=3; ctx.strokeStyle=getComputedStyle(document.body).color||"#fff"; ctx.globalAlpha=.85; ctx.stroke(); ctx.globalAlpha=1;
+  }
+
+  async function refresh(){
+    try{
+      const r=await fetch('/api/listeners',{cache:'no-store'});
+      if(!r.ok) return;
+      const d=await r.json();
+      const n=Number(d.listeners)||0;
+      data.push(n); data.shift(); draw();
+      if(window.updateListeners) updateListeners(d);
+      const peak=document.getElementById('peakListeners');
+      if(peak) peak.textContent=Number(d.peak||n).toLocaleString();
+    }catch(e){ /* never fabricate listener numbers */ }
+  }
+  window.addEventListener('resize',draw);
+  draw();
+  refresh();
+  setInterval(refresh,15000);
+})();
+</script>e html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Viral Radio — The World Is Listening</title><style>
+*{box-sizing:border-box}body{margin:0;background:#030914;color:#eef6ff;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}header{height:74px;border-bottom:1px solid #16304f;display:flex;align-items:center;gap:24px;padding:0 28px;background:#050d1a;position:sticky;top:0;z-index:5}.logo{font-weight:900;font-size:24px;letter-spacing:.5px}.logo span{color:#8c5cff}.tag{font-size:10px;color:#89a4c1;letter-spacing:2px}.nav{display:flex;gap:24px;margin-left:auto;color:#9db4ce;font-size:14px}.nav a{color:inherit;text-decoration:none}.live{background:#ff2f7d;border-radius:22px;padding:10px 17px;font-weight:800}.listeners{color:#a9bed6}.wrap{max-width:1220px;margin:auto;padding:28px 20px 50px}.grid{display:grid;grid-template-columns:220px 1fr 290px;gap:18px}.card{background:linear-gradient(145deg,#071426,#06101f);border:1px solid #153454;border-radius:16px;box-shadow:0 12px 35px #0006}.side{padding:16px}.side div{padding:13px 12px;color:#a8bdd4;border-radius:10px;margin-bottom:4px}.side .sel{background:#1a2d72;color:white}.hero{min-height:205px;display:flex;align-items:center;padding:28px;position:relative;overflow:hidden;background:radial-gradient(circle at 25% 50%,#2420a0 0,#071326 52%,#06101e 100%)}.hero h1{font-size:32px;margin:8px 0}.hero p{color:#b9cae0;max-width:500px}.hero .pill{display:inline-block;background:#ff2f7d;padding:7px 12px;border-radius:15px;font-size:11px;font-weight:900}.wave{position:absolute;right:20px;bottom:25px;width:43%;height:60px;background:repeating-linear-gradient(90deg,#7d4cff 0 3px,transparent 3px 8px);mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);opacity:.8}.now{padding:20px;display:grid;grid-template-columns:130px 1fr;gap:18px;margin-top:18px}.cover{height:130px;border-radius:12px;background:linear-gradient(135deg,#ff7b39,#4a48ff 50%,#090e1c);display:flex;align-items:end;padding:12px;font-weight:900}.meta{color:#8fa9c4;font-size:13px}.title{font-size:25px;font-weight:850;margin:7px 0}.progress{height:6px;background:#14243b;border-radius:6px;margin:18px 0}.progress i{display:block;width:44%;height:100%;background:linear-gradient(90deg,#ff2f7d,#7b5cff);border-radius:6px}.controls{display:flex;align-items:center;gap:22px}.play{width:48px;height:48px;border-radius:50%;border:0;background:#fff;color:#08101b;font-size:20px}.side2{padding:18px}.side2 h3{margin:0 0 15px}.rank{display:flex;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #132941}.num{font-weight:900;color:#a979ff;width:18px}.thumb{width:42px;height:42px;border-radius:8px;background:linear-gradient(135deg,#ff397e,#3321a8)}.rank small{display:block;color:#91a8c0;margin-top:3px}.sponsor{margin-top:18px;padding:22px;text-align:center;background:#062116;border-color:#1a9b58}.sponsor b{color:#4df08e;font-size:22px}.lower{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.box{padding:20px}.vote{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #132941}.btn{margin-top:14px;width:100%;padding:12px;border:0;border-radius:10px;background:linear-gradient(90deg,#ff2f7d,#715cff);color:white;font-weight:800}.status{color:#58e79a;font-size:12px;font-weight:800}.footer{margin-top:18px;padding:20px;text-align:center;color:#7e98b4;font-size:12px}@media(max-width:900px){.grid{grid-template-columns:1fr}.side{display:none}.nav{display:none}.lower{grid-template-columns:1fr}.hero h1{font-size:25px}}
+</style>
+<style>
+.monitor-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+.monitor-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px}
+.monitor-label{font-size:11px;opacity:.65;text-transform:uppercase;letter-spacing:.08em}
+.monitor-value{font-size:25px;font-weight:800;margin-top:5px}
+.monitor-sub{font-size:11px;opacity:.55;margin-top:4px}
+.monitor-live{display:inline-flex;align-items:center;gap:7px;font-weight:700}
+.monitor-dot{width:9px;height:9px;border-radius:50%;background:#ff3158;box-shadow:0 0 12px #ff3158;display:inline-block}
+.chart-wrap{margin-top:14px;padding:14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.1);border-radius:14px}
+#listenerChart{width:100%;height:120px}
+@media(max-width:800px){.monitor-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head><body><header><div><div class="logo">VIRAL <span>RADIO</span></div><div class="tag">THE WORLD IS LISTENING</div></div><nav class="nav"><a href="#">Home</a><a href="#top">Top 10</a><a href="#vote">Vote</a><a href="#request">Request</a></nav><div class="live">● LIVE</div><div class="listeners" id="headerListeners">0 listeners</div></header><main class="wrap"><div class="grid"><aside class="card side"><div class="sel">🎧 Now Playing</div><div>🏆 Global Top 10</div><div>👍 Vote</div><div>🎵 Request a Song</div><div>🤖 AI DJ</div><div>📅 Schedule</div><div>📰 News & Trends</div><div>🌐 Social</div></aside><section><div class="card hero"><div><span class="pill">ON AIR</span><h1>AI DJ LIVE</h1><p id="dj">“Good vibes, great music and people from all over the world. This is Viral Radio!”</p><div class="status">● AI BROADCAST ACTIVE</div></div><div class="wave"></div></div><div class="card now"><div class="cover">VIRAL<br>RADIO</div><div><div class="meta">🎵 NOW PLAYING · GLOBAL POP</div><div class="title">Demo Track — The World Is Listening</div><div class="meta">Viral Radio Original Demo</div><div class="progress"><i></i></div><div class="controls"><span>LIVE</span><button class="play" onclick="scrollToCasterPlayer()">▶</button><span>CASTER.FM</span><span>🔊</span></div></div></div><div class="lower"><div class="card box" id="top"><h3>🏆 Global Top 10</h3><div class="rank"><b class="num">1</b><div class="thumb"></div><div>Dua Lipa<small>Houdini</small></div></div><div class="rank"><b class="num">2</b><div class="thumb"></div><div>The Weeknd<small>Dancing In The Flames</small></div></div><div class="rank"><b class="num">3</b><div class="thumb"></div><div>Imagine Dragons<small>Believer</small></div></div></div><div class="card box" id="vote"><h3>🗳️ Vote for Next Song</h3><div class="vote"><span>Flowers — Miley Cyrus</span><b>42%</b></div><div class="vote"><span>Calm Down — Rema</span><b>34%</b></div><div class="vote"><span>As It Was — Harry Styles</span><b>24%</b></div><button class="btn" onclick="vote()">VOTE NOW</button></div></div></section><aside class="card side2"><h3>🔥 Viral Track of the Hour</h3><div class="rank"><div class="thumb"></div><div><b>Demo Winner</b><small>Selected by listeners</small></div></div><button class="btn">VIEW GLOBAL TOP 10 →</button><div class="card sponsor"><small>SPONSOR SLOT</small><p><b>Your Brand</b></p><small>Be seen by a global audience</small></div></aside></div><div class="card footer" id="request">🌍 Worldwide • 🤖 AI DJ • 🗳️ Listener voting • 💬 Requests • 💰 Sponsor-ready<br><br>Viral Radio — The World Is Listening</div></main><script>
+const STREAM_URL = ""; // REQUIRED: put your real radio stream URL here (e.g. https://example.com/stream.mp3)
+const LISTENER_ID_KEY = "viral-radio-listener-id";
+function getListenerId(){
+  try {
+    let id = localStorage.getItem(LISTENER_ID_KEY);
+    if (!id) {
+      id = crypto.randomUUID ? crypto.randomUUID() : (Date.now()+"-"+Math.random().toString(36).slice(2));
+      localStorage.setItem(LISTENER_ID_KEY, id);
+    }
+    return id;
+  } catch (_) { return Date.now()+"-"+Math.random().toString(36).slice(2); }
+}
+let player = null;
+let listenerTimer = null;
+
+function demo(){
+  if(!STREAM_URL){
+    alert("Configure the real radio stream URL in STREAM_URL first.");
+    return;
+  }
+  if(!player){
+    player = new Audio(STREAM_URL);
+    player.preload = "none";
+    player.addEventListener("play", startListenerHeartbeat);
+    player.addEventListener("pause", stopListenerHeartbeat);
+    player.addEventListener("ended", stopListenerHeartbeat);
+    player.addEventListener("error", stopListenerHeartbeat);
+  }
+  if(player.paused) player.play().catch(()=>alert("The stream could not be started."));
+  else player.pause();
+}
+function startListenerHeartbeat(){
+  sendHeartbeat(true);
+  clearInterval(listenerTimer);
+  listenerTimer=setInterval(()=>sendHeartbeat(true),15000);
+}
+function stopListenerHeartbeat(){
+  clearInterval(listenerTimer);
+  listenerTimer=null;
+  sendHeartbeat(false);
+}
+async function sendHeartbeat(active){
+  try{
+    const r=await fetch("/api/listeners",{method:"POST",headers:{"content-type":"application/json"},
+      body:JSON.stringify({active, id:getListenerId()})});
+    if(r.ok) updateListeners(await r.json());
+  }catch(e){ /* no invented fallback: UI remains at last confirmed value */ }
+}
+function updateListeners(d){
+  const n=Number(d.listeners)||0;
+  const header=document.getElementById("headerListeners");
+  const now=document.getElementById("listenersNow");
+  if(header) header.textContent=n.toLocaleString()+" listeners";
+  if(now) now.textContent=n.toLocaleString();
+  if(d.countries!=null){
+    const c=document.getElementById("countriesCount"); if(c)c.textContent=Number(d.countries)||0;
+  }
+}
+window.addEventListener("beforeunload",()=>sendHeartbeat(false));
+</script>
+<section id="monitoring" style="margin-top:28px">
+  <h2>📊 LIVE MONITORING</h2>
+  <div class="monitor-grid">
+    <div class="monitor-card"><div class="monitor-label">Status</div><div class="monitor-value monitor-live"><span class="monitor-dot"></span>LIVE</div><div class="monitor-sub">Radio stream monitor</div></div>
+    <div class="monitor-card"><div class="monitor-label">Listeners now</div><div class="monitor-value" id="listenersNow">0</div><div class="monitor-sub">active listeners</div></div>
+    <div class="monitor-card"><div class="monitor-label">Peak today</div><div class="monitor-value" id="peakListeners">0</div><div class="monitor-sub">highest concurrent</div></div>
+    <div class="monitor-card"><div class="monitor-label">Avg. session</div><div class="monitor-value" id="avgSession">—</div><div class="monitor-sub">estimated listening time</div></div>
+  </div>
+  <div class="chart-wrap">
+    <div class="monitor-label">Listeners — last 20 min</div>
+    <canvas id="listenerChart"></canvas>
+  </div>
+  <div class="monitor-grid">
+    <div class="monitor-card"><div class="monitor-label">Top country</div><div class="monitor-value" id="topCountry">—</div><div class="monitor-sub">from connected players</div></div>
+    <div class="monitor-card"><div class="monitor-label">Countries</div><div class="monitor-value" id="countriesCount">0</div><div class="monitor-sub">connected countries</div></div>
+    <div class="monitor-card"><div class="monitor-label">Peak hour</div><div class="monitor-value" id="peakHour">—</div><div class="monitor-sub">highest live hour</div></div>
+    <div class="monitor-card"><div class="monitor-label">Uptime</div><div class="monitor-value">LIVE</div><div class="monitor-sub">player monitor</div></div>
+  </div>
+</section>
+
+<script>
+(() => {
+  const canvas = document.getElementById('listenerChart');
+  const data = Array(20).fill(0);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function draw(){
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    canvas.width = w*dpr; canvas.height = h*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,w,h);
+    const max = Math.max(1, ...data);
+    const x = i => 8 + i*(w-16)/(data.length-1);
+    const y = v => h-10-(v)*(h-20)/max;
+    ctx.beginPath();
+    data.forEach((v,i)=> i ? ctx.lineTo(x(i),y(v)) : ctx.moveTo(x(i),y(v)));
+    ctx.lineWidth=3;
+    ctx.strokeStyle=getComputedStyle(document.body).color || '#fff';
+    ctx.globalAlpha=.85;
+    ctx.stroke();
+    ctx.globalAlpha=1;
+  }
+
+  async function refresh(){
+    try {
+      const r = await fetch('/api/listeners', {cache:'no-store'});
+      if (!r.ok) return;
+      const d = await r.json();
+      const n = Number(d.listeners) || 0;
+      const now = document.getElementById('listenersNow');
+      const header = document.getElementById('headerListeners');
+      const peak = document.getElementById('peakListeners');
+      if(now) now.textContent = n.toLocaleString();
+      if(header) header.textContent = n.toLocaleString() + ' listeners';
+      if(peak) peak.textContent = (Number(d.peak) || 0).toLocaleString();
+      data.push(n); data.shift(); draw();
+    } catch (_) {
+      // Never invent a listener number when the monitoring API is unavailable.
+    }
+  }
+  window.addEventListener('resize', draw);
+  draw();
+  refresh();
+  setInterval(refresh, 5000);
+})();
+</script>
+</body></html>
