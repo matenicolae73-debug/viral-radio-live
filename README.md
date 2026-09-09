@@ -1,14 +1,30 @@
-# Viral Radio — Real Listener Monitoring
+# Viral Radio — fixed buttons + real listener monitoring
 
-This build uses real player heartbeats only. It does **not** generate demo/random listener numbers.
+This version repairs the broken/duplicate HTML and makes the navigation, Play, Vote,
+Request, Top 10, News and Follow buttons respond.
 
-## Required
-Set the real audio stream URL in `index.html`:
+## Real listener rule
+The listener counter is **not fake**. A listener is counted only after the site's
+real audio player successfully starts and sends heartbeats. No random numbers are generated.
+
+## Caster.fm
+The ZIP intentionally does **not** invent a stream URL. Before Play can start a
+Caster.fm stream through the site's own audio player, set this line in `index.html`:
 
 ```js
-const STREAM_URL = "https://YOUR-REAL-STREAM/stream.mp3";
+const STREAM_URL = "YOUR_REAL_CASTER_FM_STREAM_URL";
 ```
 
-A listener is counted only after the visitor presses Play and the browser successfully starts the real stream. The browser sends a heartbeat every 15 seconds; inactive listeners expire after 45 seconds.
+You can also configure the official Caster.fm widget by replacing its Public Token
+and Channel ID placeholders.
 
-For Vercel production, configure Upstash/Vercel KV with `KV_REST_API_URL` and `KV_REST_API_TOKEN` so the count is shared between serverless instances. Without Redis, the fallback is per-instance memory and may undercount; it never fabricates traffic.
+## Vercel / Redis
+For a shared production listener counter, configure Upstash/Vercel Redis with:
+`KV_REST_API_URL` and `KV_REST_API_TOKEN` (or the corresponding `UPSTASH_REDIS_REST_*` variables).
+
+Without Redis, the API uses per-instance memory and can undercount across Vercel
+instances. It never fabricates listeners.
+
+## Important
+Votes and requests in this lightweight build use server memory. For permanent/global
+storage, connect the existing endpoints to Redis or another database.
